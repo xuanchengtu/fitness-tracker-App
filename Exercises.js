@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Avatar,  Card, Title, Paragraph } from 'react-native-paper'
 import {useState} from 'react'
-import { StyleSheet, Button,Text, View, TextInput, Modal, ScrollView} from 'react-native';
+import { StyleSheet, Button,Text, View, TextInput, Modal, ScrollView, Platform} from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker"
 
 class ExerciseCard extends React.Component{
@@ -232,8 +232,10 @@ class AddExercisePopUp extends React.Component{
            </View>
         </View>
       </Modal>
-      <DateTimePickerModal
+      <DateTimePickerModal 
         isVisible={this.state.isDatePickerVisible}
+        style={{width: "100%", backgroundColor: "white"}}
+        display={Platform.OS === 'ios' ? "spinner": "default"}
         mode="datetime"
         onConfirm={(selectedDate) => {
             console.log(selectedDate)

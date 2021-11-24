@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Avatar,  Card, Title, Paragraph } from 'react-native-paper'
 import {useState} from 'react'
-import { StyleSheet, Button,Text, View, TextInput, Modal, ScrollView} from 'react-native';
+import { StyleSheet, Button,Text, View, TextInput, Modal, ScrollView, TouchableOpacity} from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker"
 import FoodCard from './Food'
 
@@ -41,16 +41,27 @@ class AddFoodPopUp extends React.Component{
     shadowRadius: 4 , borderColor: "red", borderWidth: 3, margin: 3}}>
             <Text style={{fontWeight:"bold"}}>New Food</Text>
             <Text>Food Name</Text>
+            <TouchableOpacity accessible={true} accessibilityLabel="Food name" accessibilityHint={"textfield. Enter the name of this new food here. " + (this.state.name === "" ? " This textfield is currently empty" : " Current content: " + this.state.name) + " Double tap to edit."}>
             <TextInput defaultValue={this.state.name.toString()} onChangeText={(text) => this.setState({name: text})}/>
+            </TouchableOpacity>
             <Text>Calories</Text>
+            <TouchableOpacity accessible={true} accessibilityLabel="Calories" accessibilityHint={"textfield. Enter the number of calories of this new food here. Input must be a valid integer." + (this.state.calories === "" ? " This textfield is currently empty" : " Current content: " + this.state.calories) + " Double tap to edit."}>
             <TextInput defaultValue={this.state.calories.toString()} onChangeText={(text) => this.setState({calories: text})}/>
+            </TouchableOpacity>
             <Text>Carbohydrates</Text>
+            <TouchableOpacity accessible={true} accessibilityLabel="Carbohydrates" accessibilityHint={"textfield. Enter the amount of carbohydrates of this new food in grams here. Input must be a valid integer." + (this.state.carbohydrates === "" ? " This textfield is currently empty" : " Current content: " + this.state.carbohydrates) + " Double tap to edit."}>
             <TextInput defaultValue={this.state.carbohydrates.toString()} onChangeText={(text) => this.setState({carbohydrates: text})}/>
+            </TouchableOpacity>
             <Text>Protein</Text>
+            <TouchableOpacity accessible={true} accessibilityLabel="Protein" accessibilityHint={"textfield. Enter the amount of protein of this new food in grams here. Input must be a valid integer." + (this.state.protein === "" ? " This textfield is currently empty" : " Current content: " + this.state.protein) + " Double tap to edit."}>
             <TextInput defaultValue={this.state.protein.toString()} onChangeText={(text) => this.setState({protein: text})}/>
+            </TouchableOpacity>
             <Text>Fat</Text>
+            <TouchableOpacity accessible={true} accessibilityLabel="Fat" accessibilityHint={"textfield. Enter the amount of fat of this new food in grams here. Input must be a valid integer." + (this.state.fat === "" ? " This textfield is currently empty" : " Current content: " + this.state.fat) + " Double tap to edit."}>
             <TextInput defaultValue={this.state.fat.toString()} onChangeText={(text) => this.setState({fat: text})}/>
+            </TouchableOpacity>
             <View style={styles.dualButton}>
+            <TouchableOpacity accessible={true} accessibilityLabel="Save" accessibilityHint="Button. Double tap this button to confirm adding this food">
             <Button title="Save" onPress={() => {
               let missingField = []
               for(let i of ['calories', 'carbohydrates', 'protein', 'fat']){
@@ -82,7 +93,10 @@ class AddFoodPopUp extends React.Component{
           this.props.setInvisible()
         })
             }} />
+            </TouchableOpacity>
+            <TouchableOpacity accessible={true} accessibilityLabel="Never mind" accessibilityHint="Button. Double tap this button to cancel adding this food">
             <Button title="Nevermind!" onPress={() => this.props.setInvisible()}/>
+            </TouchableOpacity>
             </View>
            </View>
         </View>
@@ -164,8 +178,8 @@ class MealCard extends React.Component{
 
     render(){
     return(
-    <View style={{}}>
-        <Card style={{margin: 10, borderColor: "orange", borderWidth: 1}}>
+    <View accessible={false}>
+        <Card style={{margin: 10, borderColor: "orange", borderWidth: 1}} accessible={false}>
             <Text style={{fontWeight: "bold"}}>Meal Name: {this.props.name}</Text>
             <Text>Date: {this.state.date.toString()}{"\n"}Total Calories: {this.state.totalCalories}{"\n"}Total Carbohydrates: {this.state.totalCarbohydrates}{"\n"}
             Total Fat: {this.state.totalFat}{"\n"}Total Protein: {this.state.totalProtein}{"\n"}Foods:</Text>
@@ -190,7 +204,9 @@ class MealCard extends React.Component{
             </View>
             {/* Todo: Add Food Button */}
             <View style={{flexDirection: "row", justifyContent: "center"}}>
+            <TouchableOpacity accessible={true} accessibilityLabel="Add food" accessibilityHint={"Button. Double tap this button to add food to meal " + this.state.name}>
             <Button title="Add Food" onPress={() => this.setState({addPopUpVisible: true})}/>
+            </TouchableOpacity>
             </View>
         </Card>
         <Modal

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler'
@@ -170,15 +170,23 @@ class Signup extends React.Component {
   render(){
     return(<View style={{alignItems: "center"}}>
       <Text style={{fontWeight: "bold", fontSize: 26}}>Fitness Tracker</Text>
+      <TouchableOpacity accessibility={true}>
       <Text>New here? Let's get started! </Text>
       <Text>Please create an account below. </Text>
+      </TouchableOpacity>
+      <TouchableOpacity accessible={true} accessibilityLabel="username" accessibilityHint={"textfield. Enter the user name of your new account here. " + (this.state.username === "" ? " This textfield is currently empty" : " Current content: " + this.state.username) + " Double tap to edit."}>
       <TextInput onChangeText={(text) => this.setState({username: text})} placeholder="username" style={styles.inputText}/>
+      </TouchableOpacity>
+      <TouchableOpacity accessible={true} accessibilityLabel="password" accessibilityHint={"textfield. Enter the password of your new account here. It must be 5 characters or longer." + (this.state.password === "" ? " This textfield is currently empty" : " Current content: " + this.state.password) +"Double tap to edit."}>
       <TextInput onChangeText={(text) => this.setState({password: text})} placeholder="password" secureTextEntry={true} style={styles.inputText}/>
+      </TouchableOpacity>
       <View style={styles.dualButton}>
-      <View style={{marginRight: 10}}>
+      <TouchableOpacity style={{marginRight: 10}} accessible={true} accessibilityLabel="Create Account" accessibilityHint="Button. Double tap this button to create an account with specified user name and password">
       <Button title="Create Account" onPress={this.handlePress} />
-      </View>
+      </TouchableOpacity>
+      <TouchableOpacity accessible={true} accessibilityLabel="Never mind" accessibilityHint="Button. Double tap this button to back to the log in page.">
       <Button title="Never mind!" onPress={() => this.props.navigation.navigate("Log in")}/>
+      </TouchableOpacity>
       </View>
   </View>)
   }
@@ -210,7 +218,7 @@ class Login extends React.Component {
   render(){
       return(
           <View style={{alignItems: "center"}}>
-              <Text style={{fontWeight: "bold", fontSize: 26}}>Fitness Tracker</Text>
+              <Text style={{fontWeight: "bold", fontSize: 26}} accessible={false}>Fitness Tracker</Text>
               <Text>Welcome! Please login or signup to continue.</Text>
               <TextInput onChangeText={(text) => this.setState({username: text})} placeholder="username" style={styles.inputText}/>
               <TextInput onChangeText={(text) => this.setState({password: text})} secureTextEntry={true} placeholder="password" style={styles.inputText}/>
@@ -219,7 +227,9 @@ class Login extends React.Component {
                 <Button title="Log in" onPress={this.handlePress}/>
                 </View>
                 <View>
+                <TouchableOpacity accessible={true} accessibilityLabel="sign up" accessibilityHint="Button. Double tap to switch to the sign up page">
                 <Button title="sign up" onPress={() => this.props.navigation.navigate("Sign up")}/>
+                </TouchableOpacity>
                 </View>
               </View>
           </View>
